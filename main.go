@@ -35,7 +35,7 @@ func main() {
 	// Start this webserver just to never puts this instance idle
 	go StartWebServer()
 
-	bot.Debug = true
+	bot.Debug = false
 
 	log.Printf("Authorized on account %s\n", bot.Self.UserName)
 

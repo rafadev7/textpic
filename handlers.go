@@ -41,7 +41,7 @@ func InitHandler(u *User, update tgbotapi.Update) {
 
 	case "/about":
 		u.Println("This is the first SSH Client for Telegram to rapidly connect to your remote server with all messages encrypted by Telegram")
-		u.Println("It's an open-source project found in github.com/rafadev7/sshclient")
+		u.Println("It's an open-source project found in github.com/rafadev7/textpic")
 		u.Println("We don't store any information you send through the very secure Telegram cryptography system")
 		u.Println("If you got interested then access our github pages and get involved with the project")
 		u.Println("Chose one of the options in the keyboard bellow")
