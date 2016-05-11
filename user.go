@@ -27,6 +27,13 @@ func (u *User) Println(line string) (tgbotapi.Message, error) {
 	return u.Bot.Send(m)
 }
 
+func (u *User) PrintCode(code string) (tgbotapi.Message, error) {
+	m := tgbotapi.NewMessage(u.ChatID, "```"+code+"```")
+	m.DisableWebPagePreview = true
+	m.ParseMode = "Markdown"
+	return u.Bot.Send(m)
+}
+
 func (u *User) Send(msg tgbotapi.MessageConfig) (tgbotapi.Message, error) {
 	return u.Bot.Send(msg)
 }
