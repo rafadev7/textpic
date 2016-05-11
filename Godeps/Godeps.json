@@ -1,0 +1,54 @@
+{
+	"ImportPath": "github.com/rafadev7/textpic",
+	"GoVersion": "go1.6",
+	"GodepVersion": "v63",
+	"Deps": [
+		{
+			"ImportPath": "github.com/braintree/manners",
+			"Comment": "0.4.0-13-g213a497",
+			"Rev": "213a497c0285defc24f640dbdb8a30f7d7080310"
+		},
+		{
+			"ImportPath": "github.com/go-telegram-bot-api/telegram-bot-api",
+			"Comment": "v4.2.1",
+			"Rev": "bf6e165e92e6da5dd62b859f8397f7c8864e4b04"
+		},
+		{
+			"ImportPath": "github.com/golang/freetype",
+			"Comment": "release-129-gc67e4d9",
+			"Rev": "c67e4d98d212356ec0d9436a1edcbb6eb799f847"
+		},
+		{
+			"ImportPath": "github.com/golang/freetype/raster",
+			"Comment": "release-129-gc67e4d9",
+			"Rev": "c67e4d98d212356ec0d9436a1edcbb6eb799f847"
+		},
+		{
+			"ImportPath": "github.com/golang/freetype/truetype",
+			"Comment": "release-129-gc67e4d9",
+			"Rev": "c67e4d98d212356ec0d9436a1edcbb6eb799f847"
+		},
+		{
+			"ImportPath": "github.com/nfnt/resize",
+			"Rev": "4d93a29130b1b6aba503e2aa8b50f516213ea80e"
+		},
+		{
+			"ImportPath": "github.com/oliamb/cutter",
+			"Comment": "v0.2.0-7-g6bb2691",
+			"Rev": "6bb26911f52436bb5c63667f9aaa2d1826b2df9e"
+		},
+		{
+			"ImportPath": "github.com/technoweenie/multipartstreamer",
+			"Comment": "v1.0.1",
+			"Rev": "a90a01d73ae432e2611d178c18367fbaa13e0154"
+		},
+		{
+			"ImportPath": "golang.org/x/image/font",
+			"Rev": "f551d3a6b7fc11df315ad9e18b404280680f8bec"
+		},
+		{
+			"ImportPath": "golang.org/x/image/math/fixed",
+			"Rev": "f551d3a6b7fc11df315ad9e18b404280680f8bec"
+		}
+	]
+}
