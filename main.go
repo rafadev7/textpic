@@ -35,7 +35,7 @@ func main() {
 	// Start this webserver just to never puts this instance idle
 	go StartWebServer()
 
-	bot.Debug = false
+	bot.Debug = true
 
 	log.Printf("Authorized on account %s\n", bot.Self.UserName)
 
@@ -56,31 +56,53 @@ func main() {
 			u.State = InitState
 		}
 
+		if update.Message != nil && update.Message.Document != nil {
+			u.Println("Please don't send as a file!")
+		}
+
 		// This bot doesn't answare for inline queries
 		if update.Message != nil {
 			if update.Message.Photo != nil {
-				// Take the smallest photo
-				small := tgbotapi.PhotoSize{}
-				small.Width = 513
-				for _, pic := range *update.Message.Photo {
-					if pic.Width < small.Width {
-						small = pic
+				// Take the biggest
+				pic := tgbotapi.PhotoSize{}
+				pic.Width = 0
+				for _, p := range *update.Message.Photo {
+					if p.Width > pic.Width {
+						pic = p
 					}
 				}
 
-				url, err := bot.GetFileDirectURL(small.FileID)
+				if pic.FileID == "" {
+					u.Println("Error, FileID is empty")
+				}
+
+				url, err := bot.GetFileDirectURL(pic.FileID)
 				if err != nil {
 					u.Println("Error transforming img: " + err.Error())
 				}
 
-				u.Println("PHOTO URL: " + url)
+				if url == "" {
+					u.Println("Error, URL is empty")
+				}
 
-				str, err := TransformImage(url)
+				//u.Println("PHOTO URL: " + url)
+
+				bytesImg, err := TransformImage(url, 1696, 2560)
 				if err != nil {
 					u.Println("Error transforming img: " + err.Error())
 				}
-				u.Println("IMG:")
-				u.PrintCode(str)
+				//u.Println("Sending img...")
+
+				b := tgbotapi.FileBytes{Name: "textpic.png", Bytes: bytesImg}
+
+				msg := tgbotapi.NewPhotoUpload(update.Message.Chat.ID, b)
+				//msg.Caption = "Test"
+				_, err = bot.Send(msg)
+
+				if err != nil {
+					u.Println("Error transforming img: " + err.Error())
+				}
+				//u.PrintCode(str)
 			}
 		}
 
