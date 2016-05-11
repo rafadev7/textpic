@@ -31,16 +31,16 @@ func InitHandler(u *User, update tgbotapi.Update) {
 
 	switch update.Message.Text {
 	case "/start":
-		u.Println("Transfroms to ASCII Art any Image you send us.")
-		u.Println("Send us a pic will create a text Art just for you!")
+		u.Println("Transforms any image into ASCII Art.")
+		u.Println("Send us a pic  and we will create a ASCII Art based in your image!")
 
 	case "/help":
-		u.Println("Just send us a photo media and we will return the text art.")
+		u.Println("Just send us a photo media and we will return the ASCII Art from it.")
 		u.Println("Type /about to know more about this project")
 		u.Println("Type /rate to give us five stars!")
 
 	case "/about":
-		u.Println("This is the first bot to transform your images in ASCII art")
+		u.Println("This is the first bot to transform your images in ASCII Art")
 		u.Println("It's an open-source project found in github.com/rafadev7/textpic")
 		u.Println("We don't store any information you send")
 		u.Println("If you got interested then access our github pages and get involved with the project")
