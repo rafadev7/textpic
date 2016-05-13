@@ -3,6 +3,10 @@ package main
 import "github.com/go-telegram-bot-api/telegram-bot-api"
 
 func Handle(u *User, update tgbotapi.Update) {
+
+	// In case of user sending images
+	ImageProcess(u, update)
+
 	switch u.State {
 	case InitState:
 		InitHandler(u, update)
@@ -89,4 +93,66 @@ func GalleryHandler(u *User, update tgbotapi.Update) {
 		u.State = InitState
 
 	}
+}
+
+func ImageProcess(u *User, update tgbotapi.Update) {
+
+	if update.Message != nil && update.Message.Document != nil {
+		u.Println("Please don't send as a file!")
+		return
+	}
+
+	// This bot doesn't answare for inline queries
+	if update.Message == nil || update.Message.Photo == nil {
+		return
+	}
+
+	// Take the biggest photo sent
+	pic := tgbotapi.PhotoSize{}
+	pic.Width = 0
+	for _, p := range *update.Message.Photo {
+		if p.Width > pic.Width {
+			pic = p
+		}
+	}
+
+	// It should never occours
+	if pic.FileID == "" {
+		u.Println("Error, FileID is empty")
+		return
+	}
+
+	url, err := u.Bot.GetFileDirectURL(pic.FileID)
+	if err != nil {
+		u.Println("Error getting the url: " + err.Error())
+		return
+	}
+
+	// It should never occours
+	if url == "" {
+		u.Println("Error, URL is empty")
+		return
+	}
+
+	text, size, err := ImageToText(url)
+	if err != nil {
+		u.Println("Error transforming img to text: " + err.Error())
+		return
+	}
+
+	bytesImg, err := TextToImage(text, size)
+	if err != nil {
+		u.Println("Error transforming text to img: " + err.Error())
+		return
+	}
+
+	b := tgbotapi.FileBytes{Name: "textpic.png", Bytes: bytesImg}
+
+	msg := tgbotapi.NewPhotoUpload(update.Message.Chat.ID, b)
+	_, err = u.Bot.Send(msg)
+
+	if err != nil {
+		u.Println("Error sending you the img: " + err.Error())
+	}
+
 }
